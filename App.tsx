@@ -1,38 +1,70 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Alert } from 'react-native';
-import Card from './components/Card';
+
+import { StyleSheet,  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
+
+import HomeScreen from './screens/HomeScreen';
+import DetailsScreen from './screens/DetailsScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import ScrollScreen from './screens/ScrollScreen';
+
+export type RootStackParamList = {
+  Home: undefined;
+  Details: { item: { id: string; title: string; description: string } };
+  Profile: undefined;
+  Scroll: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
-  const handleCardPress = () => {
-    Alert.alert('Card Clicado', 'Você tocou no card!');
-  };
-
   return (
-    <View style={styles.container}>
-      {/* Cabeçalho */}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Minha Tela Estilizada</Text>
-      </View>
-
-      {/* Conteúdo Principal */}
-      <View style={styles.content}>
-        <Image
-          source={{ uri: 'https://reactnative.dev/img/logo-og.png' }}
-          style={styles.image}
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            title: 'Tela Principal',
+            headerStyle: { backgroundColor: '#007bff' },
+            headerTintColor: '#fff',
+          }}
         />
-        <Text style={styles.subtitle}>Explorando Estilos no React Native</Text>
-      </View>
-
-      {/* Seção de Cards */}
-      <View style={styles.cardSection}>
-        <TouchableOpacity onPress={handleCardPress}>
-          <Card texto="Card 1: Estilização com Flex" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleCardPress}>
-          <Card texto="Card 2: Layouts Responsivos" />
-        </TouchableOpacity>
-      </View>
-    </View>
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
+          options={{
+            title: 'Detalhes',
+            headerStyle: { backgroundColor: '#dc3545' },
+            headerTintColor: '#fff',
+          }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            title: 'Meu Perfil',
+            headerStyle: { backgroundColor: '#17a2b8' },
+            headerTintColor: '#fff',
+          }}
+        />
+        <Stack.Screen
+          name="Scroll"
+          component={ScrollScreen}
+          options={{
+            title: 'ScrollView',
+            headerStyle: { backgroundColor: '#28a745' },
+            headerTintColor: '#fff',
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -73,13 +105,15 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
     padding: 15,
-    borderRadius: 8,
+    borderRadius: 10,
     marginBottom: 10,
-    elevation: 3,
+    borderWidth: 1,
+    borderColor: '#ddd',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
   },
   cardText: {
     fontSize: 16,
