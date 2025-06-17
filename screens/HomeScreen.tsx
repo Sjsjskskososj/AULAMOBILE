@@ -27,6 +27,7 @@ export default function HomeScreen({ navigation }:any) {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         style={styles.list}
+        ItemSeparatorComponent={() => <View style={styles.separator}/>}
       />
       <TouchableOpacity
         style={[styles.button, { backgroundColor: '#28a745' }]}
@@ -88,4 +89,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  separator: {
+    height: 1,
+    backgroundColor: '#000',
+    marginVertical: 10,
+    borderWidth: 2,
+  }
 });
