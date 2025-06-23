@@ -1,5 +1,6 @@
-import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
-
+import { StyleSheet, View, Text, FlatList, TouchableOpacity,Alert } from 'react-native';
+import { useState,useEffect } from 'react';
+import itemCard from '../components/Card';
 const DATA = [
   { id: '1', title: 'Item 1', description: 'Descrição do item 1' },
   { id: '2', title: 'Item 2', description: 'Descrição do item 2' },
@@ -9,6 +10,12 @@ const DATA = [
 ];
 
 export default function HomeScreen({ navigation }:any) {
+  const [count,setCount] = useState(0);
+  useEffect(() => {
+    if (count === 10) {
+      Alert.alert('Parabéns', 'Você atingiu 10 cliques!');
+    }
+  }, [count]);
   const renderItem = ({ item }:any) => (
     <TouchableOpacity
       style={styles.card}
@@ -29,12 +36,27 @@ export default function HomeScreen({ navigation }:any) {
         style={styles.list}
         ItemSeparatorComponent={() => <View style={styles.separator}/>}
       />
+          <View style={styles.counterContainer}>
+      <Text style={styles.counterText}>Contador: {count}</Text>
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: '#28a745' }]}
+        style={styles.counterButton}
+        onPress={() => setCount((prev) => prev + 1)}
+      >
+        <Text style={styles.buttonText}>Incrementar</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.counterButton, { backgroundColor: '#dc3545' }]}
+        onPress={() => setCount(0)}
+      >
+        <Text style={styles.buttonText}>Resetar</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.counterButton, { backgroundColor: '#28a745' }]}
         onPress={() => navigation.navigate('Profile')}
       >
         <Text style={styles.buttonText}>Ir para Perfil</Text>
       </TouchableOpacity>
+    </View>
     </View>
   );
 }
@@ -94,5 +116,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     marginVertical: 10,
     borderWidth: 2,
-  }
+  },
+  counterContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  counterText: {
+    fontSize: 18,
+    color: '#333',
+    marginBottom: 10,
+  },
+  counterButton: {
+    backgroundColor: '#007bff',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
 });
