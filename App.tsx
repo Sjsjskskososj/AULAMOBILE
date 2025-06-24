@@ -13,16 +13,17 @@ import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ScrollScreen from './screens/ScrollScreen';
+import AddTasks from './screens/AddTasks';
 
 export type RootStackParamList = {
   Home: undefined;
   Details: { item: { id: string; title: string; description: string } };
   Profile: undefined;
   Scroll: undefined;
+  AddTasks: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
-
 export default function App() {
   return (
     <NavigationContainer>
@@ -63,10 +64,20 @@ export default function App() {
             headerTintColor: '#fff',
           }}
         />
+        <Stack.Screen
+          name="AddTasks"
+          component={AddTasks}
+          options={{
+            title: 'Adicionar Tarefa',
+            headerStyle: { backgroundColor: '#007bff' },
+            headerTintColor: '#fff',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
