@@ -4,11 +4,7 @@ import { useState, useEffect } from 'react';
 export default function AddTasks({ navigation }:any) {
   const [nome, setNome] = useState('');
 
-  useEffect(() => {
-    if (nome.length > 0) {
-      Alert.alert('Entrada', `Você digitou: ${nome}`);
-    }
-  }, [nome]);
+
 
   const handleSubmit = () => {
     if (nome.trim()) {
@@ -18,18 +14,27 @@ export default function AddTasks({ navigation }:any) {
     }
   };
 
+
+function enviarTarefa(enviarTarefa:any){
+    console.log(enviarTarefa)
+}
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Adicionar Tarefa</Text>
       <TextInput
         style={styles.input}
-        placeholder="Digite seu nome"
+        placeholder="Digite o nome da tarefa..."
         value={nome}
-        onChangeText={setNome}
+        onChangeText={enviarTarefa} 
+        
       />
+    
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Enviar</Text>
       </TouchableOpacity>
+
 
       <TouchableOpacity
         style={[styles.button, { backgroundColor: '#dc3545' }]}
