@@ -27,9 +27,9 @@ export default function ProfileScreen({ navigation }: any) {
       </TouchableOpacity>
       <TouchableOpacity
   style={[styles.button, { backgroundColor: '#28a745' }]}
-  onPress={() => navigation.navigate('Form')}
+  onPress={() => navigation.navigate('AddTasks')}
 >
-  <Text style={styles.buttonText}>Ir para Formulário</Text>
+  <Text style={styles.buttonText}>Adicionar tarefas</Text>
 </TouchableOpacity>
 
     </View>

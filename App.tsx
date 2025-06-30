@@ -14,7 +14,6 @@ import DetailsScreen from './screens/DetailsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ScrollScreen from './screens/ScrollScreen';
 import AddTasks from './screens/AddTasks';
-import FormScreen from './screens/FormScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -22,7 +21,6 @@ export type RootStackParamList = {
   Profile: undefined;
   Scroll: undefined;
   AddTasks: undefined;
-  Form: undefined
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -74,11 +72,6 @@ export default function App() {
             headerStyle: { backgroundColor: '#007bff' },
             headerTintColor: '#fff',
           }}
-        />
-        <Stack.Screen
-        name="Form"
-        component={FormScreen}
-        options={{title: 'Formulário', headerStyle: {backgroundColor: '#007bff'}, headerTintColor: '#fff'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

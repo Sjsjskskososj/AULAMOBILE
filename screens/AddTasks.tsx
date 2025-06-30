@@ -44,13 +44,6 @@ export default function AddTasks({ navigation }:any) {
       >
         <Text style={styles.buttonText}>Voltar para Scroll</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: '#28a745' }]}
-        onPress={() => navigation.navigate('AddTasks')}
-      >
-        <Text style={styles.buttonText}>Ir para Adicionar Tarefa</Text>
-      </TouchableOpacity>
     </View>
   );
 }
