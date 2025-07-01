@@ -1,92 +1,88 @@
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { useState, useEffect, useId } from 'react';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList } from '../App';          // mesmo type que você criou no App.tsx
 
-export default function AddTasks({ navigation }: any) {
-  const [nome, setNome] = useState('');
+type Props = StackScreenProps<RootStackParamList, 'AddTasks'>;
 
+export default function AddTasks({ navigation }: Props) {
+  const [titulo, setTitulo] = useState('');
+  const [descricao, setDescricao] = useState('');
 
-  const handleSubmit = () => {
-    if (nome.trim()) {
-      navigation.navigate('Details', { mensagem: `Nome submetido: ${nome}` });
-    } else {
-      Alert.alert('Erro', 'Por favor, insira um nome.');
+  function handleSubmit() {
+    if (!titulo.trim() || !descricao.trim()) {
+      Alert.alert('Erro', 'Preencha título e descrição.');
+      return;
     }
-  };
 
+    const newTask = {
+      id: Date.now().toString(),
+      title: titulo,
+      description: descricao,
+    };
 
-  function enviarTarefa(enviarTarefa: any) {
-    console.log(enviarTarefa)
-    console.log()
+    // volta para Home levando a nova tarefa
+    navigation.navigate('Home', { newTask }:);
   }
-
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Adicionar Tarefa</Text>
+
       <TextInput
         style={styles.input}
-        placeholder="Digite o nome da tarefa..."
-        value={nome}
-        onChangeText={enviarTarefa}
+        placeholder="Título..."
+        value={titulo}
+        onChangeText={setTitulo}
+      />
 
+      <TextInput
+        style={[styles.input, { height: 120 }]}
+        placeholder="Descrição..."
+        multiline
+        value={descricao}
+        onChangeText={setDescricao}
       />
 
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Enviar</Text>
-      </TouchableOpacity>
-
-
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: '#dc3545' }]}
-        onPress={() => navigation.navigate('Home')}
-      >
-        <Text style={styles.buttonText}>Voltar para Home</Text>
+        <Text style={styles.buttonText}>Salvar</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={[styles.button, { backgroundColor: '#dc3545' }]}
-        onPress={() => navigation.navigate('Scroll')}
+        onPress={() => navigation.goBack()}
       >
-        <Text style={styles.buttonText}>Voltar para Scroll</Text>
+        <Text style={styles.buttonText}>Cancelar</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#333',
-  },
+  container: { flex: 1, backgroundColor: '#f5f5f5', padding: 20 },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
   input: {
-    width: '100%',
     backgroundColor: '#fff',
-    padding: 10,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#ddd',
+    padding: 10,
     marginBottom: 20,
     fontSize: 16,
   },
   button: {
     backgroundColor: '#007bff',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 12,
     borderRadius: 5,
+    alignItems: 'center',
     marginBottom: 10,
   },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
+  buttonText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
 });
