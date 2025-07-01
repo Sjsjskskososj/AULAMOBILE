@@ -19,14 +19,14 @@ export default function HomeScreen({ navigation, route }: Props) {
   ]);
   const [count, setCount] = useState(0);
 
-  // ➜ se voltou da AddTasks com uma nova tarefa:
   useEffect(() => {
-    if (route.params?.newTask) {
-      setTasks(prev => [...prev, route.params!.newTask]);
-      // limpa o param para não re‑adicionar na próxima renderização
+    const newTask = route.params?.newTask;
+    if (newTask) {
+      setTasks(prev => [...prev, newTask]);
       navigation.setParams({ newTask: undefined });
     }
   }, [route.params?.newTask]);
+  
 
   useEffect(() => {
     if (count === 10) {
@@ -58,7 +58,6 @@ export default function HomeScreen({ navigation, route }: Props) {
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
 
-      {/* botões de exemplo que você já tinha */}
       <View style={styles.counterContainer}>
         <Text style={styles.counterText}>Contador: {count}</Text>
         <TouchableOpacity
@@ -99,7 +98,6 @@ const styles = StyleSheet.create({
   cardTitle: { fontSize: 18, fontWeight: 'bold' },
   cardDescription: { fontSize: 14, color: '#666', marginTop: 4 },
   separator: { height: 12 },
-  /* contador ---------------------------------- */
   counterContainer: { alignItems: 'center', marginVertical: 20 },
   counterText: { fontSize: 18, marginBottom: 10 },
   counterButton: {
@@ -109,7 +107,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
   },
-  /* botões gerais ------------------------------ */
   button: {
     backgroundColor: '#007bff',
     paddingVertical: 12,

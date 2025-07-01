@@ -1,25 +1,20 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList } from '../App';
 
-export default function DetailsScreen({ navigation, route }: any) {
-  const { item } = route.params || {};
+type Props = StackScreenProps<RootStackParamList, 'Details'>;
+
+export default function DetailsScreen({ navigation, route }: Props) {
+  const { item } = route.params;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Detalhes do Item</Text>
-      {item ? (
-        <>
-          <Text style={styles.itemTitle}>{item.title}</Text>
-          <Text style={styles.itemDescription}>{item.description}</Text>
-        </>
-      ) : (
-        <Text style={styles.message}>Nenhum item selecionado</Text>
-      )}
+      <Text style={styles.title}>Detalhes da Tarefa</Text>
+      <Text style={styles.itemTitle}>{item.title}</Text>
+      <Text style={styles.itemDescription}>{item.description}</Text>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.goBack()}
-      >
+      <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
         <Text style={styles.buttonText}>Voltar</Text>
       </TouchableOpacity>
     </View>
@@ -35,33 +30,28 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 30,
     color: '#333',
   },
   itemTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#007bff',
     marginBottom: 10,
   },
   itemDescription: {
     fontSize: 16,
-    color: '#666',
-    marginBottom: 20,
+    color: '#555',
+    marginBottom: 30,
     textAlign: 'center',
-  },
-  message: {
-    fontSize: 18,
-    color: '#333',
-    marginBottom: 20,
   },
   button: {
     backgroundColor: '#dc3545',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 6,
   },
   buttonText: {
     color: '#fff',

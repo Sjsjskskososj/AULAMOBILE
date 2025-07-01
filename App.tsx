@@ -16,12 +16,13 @@ import ScrollScreen from './screens/ScrollScreen';
 import AddTasks from './screens/AddTasks';
 
 export type RootStackParamList = {
-  Home: undefined;
+  Home: { newTask?: { id: string; title: string; description: string } } | undefined;
   Details: { item: { id: string; title: string; description: string } };
   Profile: undefined;
   Scroll: undefined;
   AddTasks: undefined;
 };
+
 
 const Stack = createStackNavigator<RootStackParamList>();
 export default function App() {

@@ -8,7 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../App';          // mesmo type que você criou no App.tsx
+import { RootStackParamList } from '../App';         
 
 type Props = StackScreenProps<RootStackParamList, 'AddTasks'>;
 
@@ -28,8 +28,7 @@ export default function AddTasks({ navigation }: Props) {
       description: descricao,
     };
 
-    // volta para Home levando a nova tarefa
-    navigation.navigate('Home', { newTask }:);
+    navigation.navigate('Home', { newTask });
   }
 
   return (
