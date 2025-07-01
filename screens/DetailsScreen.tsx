@@ -21,6 +21,9 @@ export default function DetailsScreen({ navigation, route }: Props) {
   );
 }
 
+//aprende a commitar arthur
+//pobre fodido
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
