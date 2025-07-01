@@ -14,19 +14,27 @@ type Props = StackScreenProps<RootStackParamList, 'Home'>;
 
 export default function HomeScreen({ navigation, route }: Props) {
   const [tasks, setTasks] = useState([
-    { id: '1', title: 'Item 1', description: 'Descrição do item 1' },
-    { id: '2', title: 'Item 2', description: 'Descrição do item 2' },
+    { id: '1', title: 'Item 1', description: 'Descrição do item 1', completed: false },
+    { id: '2', title: 'Item 2', description: 'Descrição do item 2', completed: false },
+    { id: '3', title: 'Item 3', description: 'Descrição do item 3', completed: false },
   ]);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     const newTask = route.params?.newTask;
     if (newTask) {
-      setTasks(prev => [...prev, newTask]);
+      setTasks(prev => [...prev, { ...newTask, completed: false }]);
       navigation.setParams({ newTask: undefined });
     }
   }, [route.params?.newTask]);
-  
+
+  const toggleCompleted = (id: string) => {
+    setTasks(prev =>
+      prev.map(task =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
 
   useEffect(() => {
     if (count === 10) {
@@ -34,16 +42,30 @@ export default function HomeScreen({ navigation, route }: Props) {
     }
   }, [count]);
 
-  const renderItem = ({ item }: { item: typeof tasks[number] }) => (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => navigation.navigate('Details', { item })}
-    >
-      <Text style={styles.cardTitle}>{item.title}</Text>
-      <Text style={styles.cardDescription} numberOfLines={2}>
-        {item.description}
-      </Text>
-    </TouchableOpacity>
+  const renderItem = ({ item }: any) => (
+    <View style={styles.card}>
+      <TouchableOpacity onPress={() => navigation.navigate('Details', { item })}>
+        <Text style={[
+          styles.cardTitle,
+          item.completed && { textDecorationLine: 'line-through', color: 'gray' }
+        ]}>
+          {item.title}
+        </Text>
+        <Text style={styles.cardDescription}>{item.description}</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[
+          styles.completeButton,
+          { backgroundColor: item.completed ? '#6c757d' : '#28a745' }
+        ]}
+        onPress={() => toggleCompleted(item.id)}
+      >
+        <Text style={styles.buttonText}>
+          {item.completed ? 'Desmarcar' : 'Concluir'}
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 
   return (
@@ -114,5 +136,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
-  buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 
+  },
+  completeButton: {
+    marginTop: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 5,
+    alignSelf: 'flex-end',
+  },
+
 });
