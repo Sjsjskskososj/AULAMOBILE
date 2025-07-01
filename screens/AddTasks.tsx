@@ -1,9 +1,8 @@
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 
-export default function AddTasks({ navigation }:any) {
+export default function AddTasks({ navigation }: any) {
   const [nome, setNome] = useState('');
-
 
 
   const handleSubmit = () => {
@@ -15,9 +14,10 @@ export default function AddTasks({ navigation }:any) {
   };
 
 
-function enviarTarefa(enviarTarefa:any){
+  function enviarTarefa(enviarTarefa: any) {
     console.log(enviarTarefa)
-}
+    console.log()
+  }
 
 
   return (
@@ -27,10 +27,10 @@ function enviarTarefa(enviarTarefa:any){
         style={styles.input}
         placeholder="Digite o nome da tarefa..."
         value={nome}
-        onChangeText={enviarTarefa} 
-        
+        onChangeText={enviarTarefa}
+
       />
-    
+
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Enviar</Text>
       </TouchableOpacity>
